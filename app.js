@@ -64,6 +64,7 @@ menuPanel.innerHTML = `
     <h3>Demo Games</h3>
     <button class="menu-close">&times;</button>
   </div>
+
   <div class="menu-games">
     <div class="game-card" data-game="mines">
       <div class="game-icon">💣</div>
@@ -71,17 +72,19 @@ menuPanel.innerHTML = `
         <h4>Mines</h4>
         <p>Find gems, avoid mines</p>
       </div>
-      <div class="game-badge" style="background: #00C74D; color: #000;">Play Now!</div>
+      <div class="game-badge" style="background:#00C74D;color:#000;">Play Now!</div>
     </div>
+
     <div class="game-card" data-game="plinko">
       <div class="game-icon">🎯</div>
       <div class="game-info">
         <h4>Plinko</h4>
         <p>Drop balls for multipliers</p>
       </div>
-      <div class="game-badge" style="background: #00C74D; color: #000;">Play Now!</div>
+      <div class="game-badge" style="background:#00C74D;color:#000;">Play Now!</div>
     </div>
-    <div class="game-card" data-game="crash" data-active="true">
+
+    <div class="game-card active" data-game="crash">
       <div class="game-icon">🚀</div>
       <div class="game-info">
         <h4>Crash</h4>
@@ -90,13 +93,14 @@ menuPanel.innerHTML = `
       <div class="game-badge active">Playing</div>
     </div>
 
-    <div class="game-card" data-game="limbo" data-active="true">
+    <div class="game-card" data-game="limbo">
       <div class="game-icon">🎯</div>
       <div class="game-info">
         <h4>Limbo</h4>
         <p>Instant multiplier game</p>
       </div>
-  <div class="game-badge" style="background: #00C74D; color: #000;">Play Now!</div>
+      <div class="game-badge" style="background:#00C74D;color:#000;">Play Now!</div>
+    </div>
 
     <div class="game-card" data-game="dice">
       <div class="game-icon">🎲</div>
@@ -106,6 +110,7 @@ menuPanel.innerHTML = `
       </div>
       <div class="game-badge">Coming Soon</div>
     </div>
+
     <div class="game-card" data-game="roulette">
       <div class="game-icon">🎡</div>
       <div class="game-info">
@@ -114,6 +119,7 @@ menuPanel.innerHTML = `
       </div>
       <div class="game-badge">Coming Soon</div>
     </div>
+
     <div class="game-card" data-game="blackjack">
       <div class="game-icon">♠️</div>
       <div class="game-info">
@@ -123,11 +129,13 @@ menuPanel.innerHTML = `
       <div class="game-badge">Coming Soon</div>
     </div>
   </div>
+
   <div class="menu-footer">
     <button class="btn dark small" id="reset-stats">Reset Stats</button>
   </div>
 `;
 document.body.appendChild(menuPanel);
+
 
 const state = {
   balance: CONFIG.startingBalance,
@@ -202,14 +210,18 @@ function toggleMenu() {
   menuPanel.classList.toggle("hidden");
 }
 
+function toggleMenu() {
+  menuPanel.classList.toggle("hidden");
+}
+
 function setupMenu() {
   menuBtn.addEventListener("click", toggleMenu);
 
-  document.querySelector(".menu-close").addEventListener("click", () => {
+  menuPanel.querySelector(".menu-close").addEventListener("click", () => {
     menuPanel.classList.add("hidden");
   });
 
-  document.querySelectorAll(".game-card").forEach((card) => {
+  menuPanel.querySelectorAll(".game-card").forEach(card => {
     card.addEventListener("click", () => {
       const game = card.dataset.game;
 
@@ -225,32 +237,12 @@ function setupMenu() {
         return;
       }
 
+      if (game === "limbo") {
+        window.location.href = "https://tenorii23.github.io/Stake_Limbo_Demo/";
+        return;
+      }
 
-                if (game === 'Limbo') {
-      // Open Plinko in new tab
-      window.open('https://tenorii23.github.io/Stake_Limbo_Demo/', '_blank');
-      return;
-    }
-
-      showNotification(
-        `🎮 ${card.querySelector("h4").textContent} coming soon!`,
-        "info",
-        3000
-      );
-
-      document.querySelectorAll(".game-card").forEach((c) => {
-        c.classList.remove("active");
-        const badge = c.querySelector(".game-badge");
-        if (c.dataset.game === "crash") {
-          badge.textContent = "Available";
-          badge.classList.remove("active");
-        }
-      });
-
-      card.classList.add("active");
-      const badge = card.querySelector(".game-badge");
-      badge.textContent = "Selected";
-      badge.classList.add("active");
+      showNotification(`🎮 ${card.querySelector("h4").textContent} coming soon!`, "info", 3000);
     });
   });
 
@@ -264,12 +256,13 @@ function setupMenu() {
     }
   });
 
-  document.addEventListener("click", (e) => {
+  document.addEventListener("click", e => {
     if (!menuPanel.contains(e.target) && !menuBtn.contains(e.target)) {
       menuPanel.classList.add("hidden");
     }
   });
 }
+
 
 function generateCrashPoint() {
   const r = Math.random();
