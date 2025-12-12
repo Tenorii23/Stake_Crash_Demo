@@ -89,6 +89,15 @@ menuPanel.innerHTML = `
       </div>
       <div class="game-badge active">Playing</div>
     </div>
+
+    <div class="game-card" data-game="limbo" data-active="true">
+      <div class="game-icon">🎯</div>
+      <div class="game-info">
+        <h4>Limbo</h4>
+        <p>Instant multiplier game</p>
+      </div>
+  <div class="game-badge" style="background: #00C74D; color: #000;">Play Now!</div>
+
     <div class="game-card" data-game="dice">
       <div class="game-icon">🎲</div>
       <div class="game-info">
@@ -215,6 +224,13 @@ function setupMenu() {
         window.open("https://plinko-web-game.netlify.app/", "_blank");
         return;
       }
+
+
+                if (game === 'Limbo') {
+      // Open Plinko in new tab
+      window.open('https://tenorii23.github.io/Stake_Limbo_Demo/', '_blank');
+      return;
+    }
 
       showNotification(
         `🎮 ${card.querySelector("h4").textContent} coming soon!`,
